@@ -11,6 +11,8 @@ import { Button } from "@nextui-org/button";
 import { Kbd } from "@nextui-org/kbd";
 import { Link } from "@nextui-org/link";
 import { Input } from "@nextui-org/input";
+import {Popover, PopoverTrigger, PopoverContent} from "@nextui-org/popover";
+
 
 import { link as linkStyles } from "@nextui-org/theme";
 
@@ -30,6 +32,23 @@ import {
 import { Logo } from "@/components/icons";
 
 export const Navbar = () => {
+
+	const popoverContent = (
+    <PopoverContent>
+      <div className="px-2 py-2 flex flex-col gap-4">
+        <div className="text-small font-bold">
+			<NextLink href="/profile">Profile</NextLink>
+		</div>
+        <div className="text-small font-bold">
+			<NextLink href="/account">Account</NextLink>
+		</div>
+        <div className="text-small font-bold">
+			<NextLink href="/logout">Log Out</NextLink>
+		</div>
+      </div>
+    </PopoverContent>
+  );
+
 	const searchInput = (
 		<Input
 			aria-label="Search"
@@ -57,7 +76,7 @@ export const Navbar = () => {
 				<NavbarBrand as="li" className="gap-3 max-w-fit">
 					<NextLink className="flex justify-start items-center gap-1" href="/">
 						<Logo />
-						<p className="font-bold text-inherit">ACME</p>
+						<p className="font-bold text-inherit">Ivy Notes</p>
 					</NextLink>
 				</NavbarBrand>
 				<ul className="hidden lg:flex gap-4 justify-start ml-2">
@@ -81,26 +100,50 @@ export const Navbar = () => {
 			<NavbarContent
 				className="hidden sm:flex basis-1/5 sm:basis-full"
 				justify="end"
-			>
+		><ul className="hidden lg:flex gap-4 justify-start ml-2">
+					{siteConfig.rightNavLoggedOutItems.map((item) => (
+						<NavbarItem key={item.href}>
+							<NextLink
+								className={clsx(
+									linkStyles({ color: "foreground" }),
+									"data-[active=true]:text-primary data-[active=true]:font-medium"
+								)}
+								color="foreground"
+								href={item.href}
+							>
+								{item.label}
+							</NextLink>
+						</NavbarItem>
+					))}
+				</ul>
+
+				<NavbarItem>
+					<Popover placement={"bottom-start"} color="">
+						<PopoverTrigger>
+							<Button color="primary" variant="flat" className="capitalize">
+								User
+							</Button>
+						</PopoverTrigger>
+						{popoverContent}
+					</Popover>
+
+				</NavbarItem>
+
 				<NavbarItem className="hidden sm:flex gap-2">
 					<Link isExternal href={siteConfig.links.twitter} aria-label="Twitter">
 						<TwitterIcon className="text-default-500" />
-					</Link>
-					<Link isExternal href={siteConfig.links.discord} aria-label="Discord">
-						<DiscordIcon className="text-default-500" />
 					</Link>
 					<Link isExternal href={siteConfig.links.github} aria-label="Github">
 						<GithubIcon className="text-default-500" />
 					</Link>
 					<ThemeSwitch />
 				</NavbarItem>
-				<NavbarItem className="hidden lg:flex">{searchInput}</NavbarItem>
 				<NavbarItem className="hidden md:flex">
 					<Button
-            isExternal
+						isExternal
 						as={Link}
 						className="text-sm font-normal text-default-600 bg-default-100"
-						href={siteConfig.links.sponsor}
+						href="/donate"
 						startContent={<HeartFilledIcon className="text-danger" />}
 						variant="flat"
 					>
@@ -110,6 +153,7 @@ export const Navbar = () => {
 			</NavbarContent>
 
 			<NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
+
 				<Link isExternal href={siteConfig.links.github} aria-label="Github">
 					<GithubIcon className="text-default-500" />
 				</Link>
@@ -127,8 +171,8 @@ export const Navbar = () => {
 									index === 2
 										? "primary"
 										: index === siteConfig.navMenuItems.length - 1
-										? "danger"
-										: "foreground"
+											? "danger"
+											: "foreground"
 								}
 								href="#"
 								size="lg"

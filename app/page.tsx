@@ -11,40 +11,35 @@ export default function Home() {
 		<section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
 			<div className="inline-block max-w-lg text-center justify-center">
 				<h1 className={title()}>Make&nbsp;</h1>
-				<h1 className={title({ color: "violet" })}>beautiful&nbsp;</h1>
+				<h1 className={title({ color: "green" })}>green notes&nbsp;</h1>
 				<br />
 				<h1 className={title()}>
-					websites regardless of your design experience.
+					not paper notes. Create a sustainable future today.
 				</h1>
 				<h2 className={subtitle({ class: "mt-4" })}>
-					Beautiful, fast and modern React UI library.
+					All profit and ad-revenue generated goes towards sustainable non-profits and green initiatives.
 				</h2>
 			</div>
 
 			<div className="flex gap-3">
 				<Link
-					isExternal
-					href={siteConfig.links.docs}
+					href="/editor"
 					className={buttonStyles({ color: "primary", radius: "full", variant: "shadow" })}
 				>
-					Documentation
-				</Link>
-				<Link
-					isExternal
-					className={buttonStyles({ variant: "bordered", radius: "full" })}
-					href={siteConfig.links.github}
-				>
-					<GithubIcon size={20} />
-					GitHub
+					Open Editor
 				</Link>
 			</div>
 
 			<div className="mt-8">
 				<Snippet hideSymbol hideCopyButton variant="flat">
 					<span>
-						Get started by editing <Code color="primary">app/page.tsx</Code>
+						Contribute to our  <Link isExternal href={"https://github.com/benajaero/ivynotes"}><Code color="primary">open source project</Code></Link>
 					</span>
 				</Snippet>
+			</div>
+			
+			<div className="mt-24">
+				<h2 className={subtitle()}><Link href="/donate">Donate to Ivy Notes</Link></h2>
 			</div>
 		</section>
 	);

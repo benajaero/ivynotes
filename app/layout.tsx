@@ -52,7 +52,8 @@ export default function RootLayout({
 								title="nextui.org homepage"
 							>
 								<span className="text-default-600">Powered by</span>
-								<p className="text-primary">NextUI</p>
+								<p className="text-primary">Ivy Notes<span className="text-default-600">. </span></p>
+								<span className="text-default-600">Creating a Sustainable Future</span>
 							</Link>
 						</footer>
 					</div>
